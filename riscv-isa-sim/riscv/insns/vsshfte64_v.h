@@ -1,0 +1,1 @@
+VSHFT_ST(RS2, int64, false);

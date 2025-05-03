@@ -1,0 +1,1 @@
+VSHFT_LD(RS2, int64, 0x7fffffffffffffffLL, false);
