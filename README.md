@@ -43,9 +43,9 @@ Build 후에 생성된 실행파일들은 모두 riscv-tools/bin에 위치
 ~/Spike/bin/spike --isa=rv64gcv_zvl256b_zve64d_zicntr ~/Spike/bin/pk vector-tokenize -p ~/Spike/test/Tokenizer -f prompt.txt
 ```
 
-> - `-p` 옵션: `tokenize` 실행파일의 경로  
+> - `-p` 옵션: 입력 텍스트 파일의 경로
 > - `-f` 옵션: 입력 텍스트 파일 (예: `prompt.txt`)  
-> - `tokenize`와 `prompt.txt`는 같은 디렉토리에 있어야 합니다.
+> - `id_to_token.txt`와 `prompt.txt`는 같은 디렉토리에 있어야 합니다.
 
 ---
 
