@@ -1,5 +1,5 @@
 # Spike
-Spike simulator project which include gemmini extension, RISC-V V-extension, ROPE Custom instruction, Toknizer custom instruction
+This project is a Functional Simulator project which includes gemmini extension, RISC-V V-extension, ROPE Custom instruction, Toknizer custom instruction
 
 # Spike 실행 매뉴얼
 
