@@ -29,7 +29,7 @@ Build 후에 생성된 실행파일들은 모두 riscv-tools/bin에 위치
 # Spike 실행 명령어
 
 > Spike 실행파일(`spike`)과 런타임(`pk`)이 `~/Spike/bin`에 위치한다고 가정합니다.  
-> 실제 환경에 맞게 경로를 조정하세요.
+> 실제 환경에 맞게 경로를 조정하세요.\n
 > Spike/bin에 있는 실행파일은 i9 코어 환경에서 빌드한 것이므로, 다른 환경에서 구동하지 않을 수 있습니다. 그런 경우, build해서 riscv-tools/bin 의 실행파일을 사용하세요.
 
 ### 1. V-extension 코드 실행(ROPE, Tokenizer)
