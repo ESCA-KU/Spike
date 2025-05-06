@@ -21,7 +21,7 @@ Spike를 소스에서 빌드하려면 다음 명령어를 차례대로 실행하
 ```bash
 cd riscv-isa-sim
 mkdir build && cd build
-../configure --prefix=~/Spike/riscv-tools     #prefix는 실행파일 생성할 경로로 입력
+../configure --prefix=$PATH_TO_SPIKE$/riscv-tools     #prefix는 꼭 절대경로로 입력
 make clean -j$(nproc)
 make -j$(nproc)
 make install
@@ -34,16 +34,18 @@ Build 후에 생성된 spike 실행파일은 riscv-tools/bin에 위치
 
 ## PK(Proxy Kernel) Build 방법
 
-Prerequisites
-PK 빌드를 위해선 riscv64-unknown-elf-gcc (Cross compiler)가 필요하기 때문에 riscv-gnu-toolchain 설치 및 환경변수 설정 필요
-링크: https://github.com/riscv-collab/riscv-gnu-toolchain.git
+### Prerequisites
+
+- **RISC-V Cross Compiler (`riscv64-unknown-elf-gcc`)**  
+  `pk`는 RISC-V 환경에서 실행될 바이너리이므로, 반드시 RISC-V용 크로스 컴파일러가 필요합니다.
+-  [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain.git)을 먼저 빌드하여 설치하세요:
 
 PK를 소스에서 빌드하려면 다음 명령어를 차례로 실행하세요:
 
 ```bash
 cd riscv-pk
 mkdir build && cd build
-../configure --prefix=/opt/riscv --host=riscv64-unknown-elf --with-arch=rv64gc
+../configure --prefix=$PATH_TO_SPIKE$/riscv-tools --host=riscv64-unknown-elf --with-arch=rv64gc    #prefix는 꼭 절대경로로 입력
 make -j$(nproc)
 make install
 ```
@@ -52,24 +54,24 @@ Build 후에 생성된 pk 실행파일은 riscv-tools/riscv64-unknown-elf/bin에
 
 # Spike 실행 명령어
 
-> Spike 실행파일(`spike`)과 런타임(`pk`)이 `~/Spike/bin`에 위치한다고 가정합니다.  
+> Spike 실행파일(`spike`)과 런타임(`pk`)의 위치는 각각 `$PATH_TO_SPIKE$/riscv-tools/bin/spike` `$PATH_TO_SPIKE$/riscv-tools/riscv64-unknown-elf/bin/pk`에 위치합니다.
+> 각각 $spike, $pk로 지칭하겠습니다.
 > 실제 환경에 맞게 경로를 조정하세요  
-> Spike/bin에 있는 실행파일은 i9 코어 환경에서 빌드한 것이므로, 다른 환경에서 구동하지 않을 수 있습니다. 그런 경우, build해서 riscv-tools/bin 의 실행파일을 사용하세요.
 
 ### 1. V-extension 코드 실행(ROPE, Tokenizer)
 
 ```bash
-~/Spike/bin/spike --isa=rv64gcv_zvl256b_zve64d_zicntr ~/Spike/bin/pk 실행파일명
+$spike --isa=rv64gcv_zvl256b_zve64d_zicntr $pk 실행파일명
 ```
 
 ### ✅ vector-tokenize 실행 (주의사항 포함)
 
 ```bash
-~/Spike/bin/spike --isa=rv64gcv_zvl256b_zve64d_zicntr ~/Spike/bin/pk vector-tokenize -p ~/Spike/test/Tokenizer -f prompt.txt
+$spike --isa=rv64gcv_zvl256b_zve64d_zicntr $pk vector-tokenize -p ~/Spike/test/Tokenizer -f prompt.txt
 ```
 
 > - `-p` 옵션: 입력 텍스트 파일의 경로
-> - `-f` 옵션: 입력 텍스트 파일 (예: `prompt.txt`)  
+> - `-f` 옵션: 입력 텍스트 파일명 (예: `prompt.txt`)  
 > - `id_to_token.txt`와 `prompt.txt`는 같은 디렉토리에 있어야 합니다.
 
 ---
@@ -79,13 +81,13 @@ Build 후에 생성된 pk 실행파일은 riscv-tools/riscv64-unknown-elf/bin에
 #### (1) BareMetal용 실행파일
 
 ```bash
-~/Spike/bin/spike --extension=gemmini 실행파일명(~-baremetal)
+$spike --extension=gemmini 실행파일명(~-baremetal)
 ```
 
 #### (2) pk 연동 실행파일
 
 ```bash
-~/Spike/bin/spike --extension=gemmini ~/test/bin/pk 실행파일명(~-pk)
+$spike --extension=gemmini $pk 실행파일명(~-pk)
 ```
 
 ---
@@ -97,13 +99,13 @@ Build 후에 생성된 pk 실행파일은 riscv-tools/riscv64-unknown-elf/bin에
 #### 예시: V-extension 디버깅
 
 ```bash
-~/Spike/bin/spike -d --isa=rv64gcv_zvl256b_zve64d_zicntr ~/test/bin/pk 실행파일명
+$spike -d --isa=rv64gcv_zvl256b_zve64d_zicntr $pk 실행파일명
 ```
 
 #### 예시: Gemmini 디버깅
 
 ```bash
-~/Spike/bin/spike -d --extension=gemmini ~/test/bin/pk 실행파일명
+$spike -d --extension=gemmini 실행파일명   # 파일 유형에 따라 pk 추가
 ```
 
 ---
@@ -136,15 +138,13 @@ insn 0                  # 현재 명령어 확인
 
 ```text
 ~/Spike/   
-├── bin             # Spike 실행파일 폴더
-│   ├── pk          # Spike 실행 시 필요한 proxy kernel실행파일
-│   └── spike       # Spike 실행 파일
-├── riscv-isa-sim   # Spike 빌드에 필요한 src 파일
-├── riscv-tools     # Spike 빌드 결과물들을 저장하는 파일
-└── test            # Spike test에 필요한 실행파일 폴더
-    ├── Gemmini     # Gemmini 코드 및 실행파일
-    ├── ROPE        # ROPE custom Instruction으로 작성된 코드 및 실행파일
-    └── Tokenizer   # Tokenizer custom Instruction으로 작성된 코드 및 실행파일
+├── riscv-isa-sim            # Spike 빌드에 필요한 src 파일들이 위치한 폴더
+├── riscv-tools              # Spike 빌드 결과물들을 저장하는 폴더
+│   ├── riscv64-unknown-elf  # PK 빌드 결과물들을 저장하는 폴더
+└── test                     # Spike test에 필요한 실행파일 폴더
+    ├── Gemmini              # Gemmini 코드 및 실행파일
+    ├── ROPE                 # ROPE custom Instruction으로 작성된 코드 및 실행파일
+    └── Tokenizer            # Tokenizer custom Instruction으로 작성된 코드 및 실행파일
 ```
 
 > 실행 중 필요한 파일들이 올바른 위치에 있어야 에러 없이 실행됩니다.
