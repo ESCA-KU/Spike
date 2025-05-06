@@ -10,13 +10,13 @@ Spike는 RISC-V ISA 시뮬레이터로, 다양한 확장 명령어를 지원하�
 
 ## Spike Build 방법
 
-Prerequisites
+### Prerequisites
 
 ```bash
 sudo apt-get install device-tree-compiler libboost-regex-dev libboost-system-dev
 ```
 
-Spike를 소스에서 빌드하려면 다음 명령어를 차례대로 실행하세요:
+### Spike를 소스에서 빌드하려면 다음 명령어를 차례대로 실행하세요:
 
 ```bash
 cd riscv-isa-sim
@@ -40,7 +40,7 @@ Build 후에 생성된 spike 실행파일은 riscv-tools/bin에 위치
   `pk`는 RISC-V 환경에서 실행될 바이너리이므로, 반드시 RISC-V용 크로스 컴파일러가 필요합니다.
 -  [riscv-gnu-toolchain](https://github.com/riscv-collab/riscv-gnu-toolchain.git)을 먼저 빌드하여 설치하세요:
 
-PK를 소스에서 빌드하려면 다음 명령어를 차례로 실행하세요:
+### PK를 소스에서 빌드하려면 다음 명령어를 차례로 실행하세요:
 
 ```bash
 cd riscv-pk
