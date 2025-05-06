@@ -9,6 +9,7 @@ Spike는 RISC-V ISA 시뮬레이터로, 다양한 확장 명령어를 지원하�
 ---
 
 ## Spike Build 방법
+> $PATH_TO_SPIKE$는 git clone을 수행한 위치, 즉 Spike 폴더의 위치를 의미합니다. 실행환경에 맞게 수정하세요.
 
 ### Prerequisites
 
@@ -28,6 +29,7 @@ make install
 ```
 
 > `--with-isa=rv64gcv` 옵션은 Vector Extension 및 기타 확장 기능이 포함된 RISC-V 64bit 아키텍처를 의미합니다. 필요에 따라 다른 ISA를 지정할 수 있습니다.
+
 
 ---
 Build 후에 생성된 spike 실행파일은 riscv-tools/bin에 위치
@@ -68,7 +70,7 @@ $spike --isa=rv64gcv_zvl256b_zve64d_zicntr $pk 실행파일명
 ### ✅ vector-tokenize 실행 (주의사항 포함)
 
 ```bash
-$spike --isa=rv64gcv_zvl256b_zve64d_zicntr $pk vector-tokenize -p ~/Spike/test/Tokenizer -f prompt.txt
+$spike --isa=rv64gcv_zvl256b_zve64d_zicntr $pk vector-tokenize -p $PATH_TO_SPIKE$/test/Tokenizer -f prompt.txt
 ```
 
 > - `-p` 옵션: 입력 텍스트 파일의 경로
