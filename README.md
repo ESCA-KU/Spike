@@ -46,6 +46,7 @@ Build 후에 생성된 spike 실행파일은 riscv-tools/bin에 위치
 cd riscv-pk
 mkdir build && cd build
 ../configure --prefix=$PATH_TO_SPIKE$/riscv-tools --host=riscv64-unknown-elf --with-arch=rv64gc    #prefix는 꼭 절대경로로 입력
+make clean -j$(nproc)
 make -j$(nproc)
 make install
 ```
