@@ -143,7 +143,7 @@ insn 0                  # 현재 명령어 확인
 ~/Spike/   
 ├── riscv-isa-sim            # Spike 빌드에 필요한 src 파일들이 위치한 폴더
 ├── riscv-tools              # Spike 빌드 결과물들을 저장하는 폴더
-│   ├── riscv64-unknown-elf  # PK 빌드 결과물들을 저장하는 폴더
+│   └── riscv64-unknown-elf  # PK 빌드 결과물들을 저장하는 폴더
 └── test                     # Spike test에 필요한 실행파일 폴더
     ├── Gemmini              # Gemmini 코드 및 실행파일
     ├── ROPE                 # ROPE custom Instruction으로 작성된 코드 및 실행파일
